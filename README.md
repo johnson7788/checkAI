@@ -16,6 +16,14 @@
 | 数据集 | https://huggingface.co/datasets/johnson/AI-writing-detector-dataset |
 | 代码 | https://github.com/johnson7788/checkAI |
 
+**国内镜像（ModelScope）**
+
+| 资产 | 地址 |
+|---|---|
+| 模型 | https://www.modelscope.cn/models/InfoxmedModel/AI-writing-detector-laya-zh |
+| 数据集 | https://www.modelscope.cn/datasets/InfoxmedModel/AI-writing-detector-dataset |
+
+
 ---
 
 ## 目录
