@@ -542,6 +542,26 @@ print(ans["choice"], p_ai)
 
 ---
 
+
+## 8.6 导出 ONNX（可选）
+
+如果需要用 ONNX Runtime 部署（不依赖 PyTorch）：
+
+```bash
+pip install "laya[onnx]" onnxruntime
+python scripts/export_onnx.py --model runs/laya_zh --output onnx/model.onnx
+```
+
+- 脚本来自 Laya 官方（Apache-2.0，已在文件头注明）；
+- 导出后会用 ONNX Runtime 在 batch 1/2/3 上与 PyTorch 对比校验；
+- 加载：
+
+```python
+agent = laya.load("runs/laya_zh", backend="onnx", onnx_path="onnx/model.onnx")
+```
+
+> 官方模型仓库里也提供了导出的 fp32 ONNX（`onnx/model.onnx`，约 1.2GB）。
+
 ## 9. 完整复现步骤
 
 ```bash
