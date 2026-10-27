@@ -1,0 +1,17 @@
+# 大文件 / 本地数据
+data/
+release/
+runs/
+archive/
+*.safetensors
+*.tgz
+
+# 环境
+.venv/
+.venv312/
+__pycache__/
+*.pyc
+
+# 密钥
+/model.md
+.env

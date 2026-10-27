@@ -1,0 +1,8 @@
+物联网动态数据安全保护的重点是拒绝非授权用户的篡改,实现对物联网动态数据操作的过程留痕和追
+
+踪溯源.
+于2018-12-18正式启用；
+为解决大量物联网设备产生的动态数据安全存储与共享问题,建立了物联网动态数据存储安全问题的数学模型,提出了用于实现操作实体多维授权与动态数据存储的双联盟链结构,设计了基于验证节点列表的共识算法,给出了一种基于联盟链的动态数据溯源机制优化方案.
+JOS线上刊发日期为2019年3月27日。
+Effectively prevent attackers from unauthorized manipulation of IoT devices, such as tampering or counterfeiting, under approved access modes.
+consortium blockchain;

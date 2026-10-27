@@ -1,0 +1,4 @@
+laya>=0.4.15
+huggingface_hub>=0.20
+numpy>=1.24
+torch>=2.0
