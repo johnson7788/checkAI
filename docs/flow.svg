@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1010" viewBox="0 0 1400 1010">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+    <style>
+      .title { font-family: "PingFang SC","Hiragino Sans GB","Noto Sans CJK SC",sans-serif; font-size: 30px; font-weight: 700; fill: #0f172a; }
+      .sub { font-family: "PingFang SC","Hiragino Sans GB",sans-serif; font-size: 15px; fill: #64748b; }
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; rx: 14; }
+      .box-blue { fill: #eff6ff; stroke: #3b82f6; stroke-width: 2; rx: 14; }
+      .box-green { fill: #ecfdf5; stroke: #10b981; stroke-width: 2; rx: 14; }
+      .box-amber { fill: #fffbeb; stroke: #f59e0b; stroke-width: 2; rx: 14; }
+      .num { font-family: "PingFang SC",sans-serif; font-size: 16px; font-weight: 700; fill: #ffffff; }
+      .h { font-family: "PingFang SC","Hiragino Sans GB",sans-serif; font-size: 19px; font-weight: 700; fill: #0f172a; }
+      .b { font-family: "PingFang SC","Hiragino Sans GB",sans-serif; font-size: 14px; fill: #334155; }
+      .small { font-family: "PingFang SC","Hiragino Sans GB",sans-serif; font-size: 12.5px; fill: #64748b; }
+      .pill { font-family: "PingFang SC",sans-serif; font-size: 12.5px; fill: #1d4ed8; }
+      .line { stroke: #64748b; stroke-width: 2; }
+      .panel-h { font-family: "PingFang SC",sans-serif; font-size: 16px; font-weight: 700; fill: #0f172a; }
+    </style>
+  </defs>
+
+  <rect width="1400" height="1010" fill="#f8fafc"/>
+  <text x="60" y="46" class="title">数据构造流程：从人类论文到句级训练集</text>
+  <text x="60" y="72" class="sub">构造式标签 · 渐进式改写（v3 协议）· 质量门禁 · 按论文切分</text>
+
+  <!-- 1 -->
+  <rect x="60" y="96" width="820" height="92" class="box"/>
+  <circle cx="92" cy="142" r="15" fill="#3b82f6"/><text x="92" y="147" text-anchor="middle" class="num">1</text>
+  <text x="122" y="130" class="h">人类论文（确定由人写）</text>
+  <text x="122" y="158" class="b">中文学术 118 篇 · 中文医学摘要 8,000 篇 · 英文 arXiv 808 篇（均 ≤2021，避开 ChatGPT 之后）</text>
+
+  <line x1="470" y1="188" x2="470" y2="212" class="line" marker-end="url(#arrow)"/>
+
+  <!-- 2 -->
+  <rect x="60" y="216" width="820" height="92" class="box"/>
+  <circle cx="92" cy="262" r="15" fill="#3b82f6"/><text x="92" y="267" text-anchor="middle" class="num">2</text>
+  <text x="122" y="250" class="h">解析 · 清洗 · 切句</text>
+  <text x="122" y="278" class="b">去页眉/参考文献/公式 → 切句（同时识别中文句号「。」和半角「.」）→ 句子列表 N 句</text>
+
+  <line x1="470" y1="308" x2="470" y2="332" class="line" marker-end="url(#arrow)"/>
+
+  <!-- 3 -->
+  <rect x="60" y="336" width="820" height="96" class="box"/>
+  <circle cx="92" cy="384" r="15" fill="#3b82f6"/><text x="92" y="389" text-anchor="middle" class="num">3</text>
+  <text x="122" y="370" class="h">固定随机打乱 → 分配到 9 个版本</text>
+  <text x="122" y="398" class="b">每句按 rank 分到 v0–v8；覆盖率从 0% 逐步升到 100%；每句只被改写一次，后续版本累积继承</text>
+
+  <line x1="470" y1="432" x2="470" y2="456" class="line" marker-end="url(#arrow)"/>
+
+  <!-- 4 -->
+  <rect x="60" y="460" width="820" height="118" class="box-blue"/>
+  <circle cx="92" cy="506" r="15" fill="#2563eb"/><text x="92" y="511" text-anchor="middle" class="num">4</text>
+  <text x="122" y="494" class="h">句级一对一改写（5 种操作）</text>
+  <text x="122" y="520" class="b">输入一句 → 输出一句：标签天然对齐，不会错位；失败只影响这一句</text>
+  <g>
+    <rect x="122" y="534" width="104" height="30" rx="15" fill="#dbeafe"/><text x="174" y="554" text-anchor="middle" class="pill">polish 润色</text>
+    <rect x="236" y="534" width="120" height="30" rx="15" fill="#dbeafe"/><text x="296" y="554" text-anchor="middle" class="pill">paraphrase 改写</text>
+    <rect x="366" y="534" width="104" height="30" rx="15" fill="#dbeafe"/><text x="418" y="554" text-anchor="middle" class="pill">style 换风格</text>
+    <rect x="480" y="534" width="112" height="30" rx="15" fill="#dbeafe"/><text x="536" y="554" text-anchor="middle" class="pill">compress 压缩</text>
+    <rect x="602" y="534" width="104" height="30" rx="15" fill="#dbeafe"/><text x="654" y="554" text-anchor="middle" class="pill">expand 扩写</text>
+  </g>
+
+  <line x1="470" y1="578" x2="470" y2="602" class="line" marker-end="url(#arrow)"/>
+
+  <!-- 5 -->
+  <rect x="60" y="606" width="820" height="100" class="box-amber"/>
+  <circle cx="92" cy="652" r="15" fill="#d97706"/><text x="92" y="657" text-anchor="middle" class="num">5</text>
+  <text x="122" y="640" class="h">质量门禁</text>
+  <text x="122" y="666" class="b">相似度 &gt; 0.88 → 重试；仍 &gt; 0.9 → 降级为 human（不教坏模型）；跨论文完全重复句剔除</text>
+
+  <line x1="470" y1="706" x2="470" y2="730" class="line" marker-end="url(#arrow)"/>
+
+  <!-- 6 -->
+  <rect x="60" y="734" width="820" height="96" class="box"/>
+  <circle cx="92" cy="782" r="15" fill="#3b82f6"/><text x="92" y="787" text-anchor="middle" class="num">6</text>
+  <text x="122" y="768" class="h">导出 5 个版本 → 按论文切分</text>
+  <text x="122" y="796" class="b">v0 / v2 / v4 / v6 / v8 → JSONL；同一篇论文只落在一个 split，避免泄漏</text>
+
+  <line x1="470" y1="830" x2="470" y2="854" class="line" marker-end="url(#arrow)"/>
+
+  <!-- 7 -->
+  <rect x="60" y="858" width="820" height="104" class="box-green"/>
+  <text x="92" y="896" class="h">最终数据集</text>
+  <text x="92" y="926" class="b">1,789,030 行 · 约 35 万独立句 · 标签零噪声（不一致率 0%）</text>
+  <text x="92" y="948" class="small">zh 186,640 / zh_med 325,300 / en 783,372（train）</text>
+
+  <!-- 右侧面板 A：标签怎么来 -->
+  <rect x="930" y="96" width="410" height="236" class="box"/>
+  <text x="956" y="128" class="panel-h">标签为什么是“确定”的？</text>
+  <text x="956" y="158" class="b">因为我们知道“哪句被送去改了”：</text>
+  <rect x="956" y="174" width="358" height="34" rx="8" fill="#f0fdf4" stroke="#86efac"/>
+  <text x="968" y="196" class="b">改之前 = human（原句未动）</text>
+  <rect x="956" y="216" width="358" height="34" rx="8" fill="#eff6ff" stroke="#93c5fd"/>
+  <text x="968" y="238" class="b">改之后 = AI（light / heavy）</text>
+  <text x="956" y="276" class="small">polish → deepseek_light</text>
+  <text x="956" y="298" class="small">paraphrase / style / compress / expand → deepseek_heavy</text>
+  <text x="956" y="320" class="small">不需要人工标注，也没有专家分歧</text>
+
+  <!-- 右侧面板 B：覆盖率阶梯 -->
+  <rect x="930" y="352" width="410" height="212" class="box"/>
+  <text x="956" y="384" class="panel-h">覆盖率阶梯（累计）</text>
+  <g class="small">
+    <text x="956" y="416">v0</text><rect x="996" y="404" width="6" height="14" fill="#e2e8f0"/><text x="1010" y="416">0%</text>
+    <text x="956" y="442">v2</text><rect x="996" y="430" width="70" height="14" fill="#93c5fd"/><text x="1076" y="442">25%</text>
+    <text x="956" y="468">v4</text><rect x="996" y="456" width="140" height="14" fill="#60a5fa"/><text x="1146" y="468">50%</text>
+    <text x="956" y="494">v6</text><rect x="996" y="482" width="210" height="14" fill="#3b82f6"/><text x="1216" y="494">75%</text>
+    <text x="956" y="520">v8</text><rect x="996" y="508" width="280" height="14" fill="#1d4ed8"/><text x="1286" y="520">100%</text>
+  </g>
+  <text x="956" y="548" class="small">同一篇论文保留完整改稿轨迹</text>
+
+  <!-- 右侧面板 C：质量红线 -->
+  <rect x="930" y="584" width="410" height="232" class="box"/>
+  <text x="956" y="616" class="panel-h">三条质量红线</text>
+  <text x="956" y="646" class="b">① 近拷贝：改了跟没改一样</text>
+  <text x="972" y="668" class="small">相似度 &gt; 0.9 直接降级为 human</text>
+  <text x="956" y="698" class="b">② 指令泄漏：把 prompt 吐出来</text>
+  <text x="972" y="720" class="small">出现“操作类型/目标句”等字样即丢弃</text>
+  <text x="956" y="750" class="b">③ 覆盖率不足：改写失败</text>
+  <text x="972" y="772" class="small">v8 实际覆盖率需 &gt; 95%</text>
+  <text x="956" y="798" class="small">实测 96.4% / 98.2% / 96.0%</text>
+
+  <!-- 底部示例 -->
+  <rect x="60" y="976" width="1280" height="0" fill="none"/>
+</svg>
